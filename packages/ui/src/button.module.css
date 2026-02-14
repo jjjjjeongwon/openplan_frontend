@@ -1,0 +1,28 @@
+.button {
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 12px;
+  width: 335px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+  background-color: rgba(17, 17, 17, 0.8);
+}
+
+@media (min-width: 768px) {
+  .button {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .button {
+    font-size: 18px;
+  }
+}
