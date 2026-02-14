@@ -12,7 +12,7 @@ export default function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         <div className={styles.ctas}>
-          <Button children="다음" appName="" />
+          <Button children="다음" />
         </div>
       </main>
     </div>

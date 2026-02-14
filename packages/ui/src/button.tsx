@@ -6,15 +6,14 @@ import styles from './button.module.css';
 interface ButtonProps {
   children: ReactNode;
   disabled?: boolean;
-  appName: string;
 }
 
-export const Button = ({ children, disabled, appName }: ButtonProps) => {
+export const Button = ({ children, disabled }: ButtonProps) => {
   return (
     <button
       className={styles.button}
       disabled={disabled}
-      onClick={() => alert(`Hello from your ${appName}테스트!!!! app!`)}
+      onClick={() => alert('클릭 테스트!')}
     >
       {children}
     </button>
