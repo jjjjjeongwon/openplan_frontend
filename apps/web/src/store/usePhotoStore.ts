@@ -16,7 +16,7 @@ export const usePhotoStore = create<PhotoState>()(
       clearPhoto: () => set({ photo: null }),
     }),
     {
-      name: 'photo-storage', // localStorage key
+      name: 'photo-storage',
     },
   ),
 );

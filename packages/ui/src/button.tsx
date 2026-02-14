@@ -6,7 +6,7 @@ import styles from './button.module.css';
 interface ButtonProps {
   children: ReactNode;
   disabled?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>; // 선택적 prop으로 만들 수 있음
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button = ({ children, disabled, onClick }: ButtonProps) => {
