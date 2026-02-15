@@ -23,7 +23,11 @@ export default function Home() {
   useEffect(() => {
     try {
       const stored = localStorage.getItem('photo-storage');
-      if (!stored) return;
+
+      if (!stored) {
+        const timer = setTimeout(() => router.replace('/'), 1000);
+        return () => clearTimeout(timer);
+      }
 
       const parsed = JSON.parse(stored);
       const photoData = parsed?.state?.photo;
@@ -33,12 +37,15 @@ export default function Home() {
         return;
       }
 
-      setTimeout(() => {
-        setPhoto(parsed.state.photo);
+      const timer = setTimeout(() => {
+        setPhoto(photoData);
         setLoading(false);
       }, 500);
+
+      return () => clearTimeout(timer);
     } catch (error) {
       console.error(error);
+      router.replace('/');
     }
   }, []);
 
