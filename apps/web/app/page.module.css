@@ -35,7 +35,28 @@
   font-weight: 600;
 }
 
+@media (min-width: 1024px) {
+  .description {
+    font-size: 32px;
+  }
+}
+
 .footer {
   width: 100%;
   padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer button {
+  width: 335px;
+  max-width: 100%;
+  font-size: 16px;
+  height: 48px;
+}
+
+@media (min-width: 1024px) {
+  .footer button {
+    font-size: 24px;
+  }
 }

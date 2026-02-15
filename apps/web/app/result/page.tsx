@@ -140,10 +140,10 @@ export default function Home() {
             </li>
           </ul>
         </section>
+        <footer className={styles.footer}>
+          <Button children="이전" onClick={() => router.back()} />
+        </footer>
       </main>
-      <footer className={styles.footer}>
-        <Button children="이전" onClick={() => router.back()} />
-      </footer>
     </div>
   );
 }
