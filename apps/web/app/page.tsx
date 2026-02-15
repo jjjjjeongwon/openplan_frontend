@@ -4,13 +4,13 @@ import { Button } from '@repo/ui/button';
 import styles from './page.module.css';
 import { useFetchPhoto } from '../src/hooks/useFetchPhoto';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const router = useRouter();
   const { fetchPhoto, status } = useFetchPhoto();
 
-  const [throttle, setThrottle] = useState<boolean>(true);
+  const [throttle, setThrottle] = useState<boolean>(false);
 
   const handleClick = () => {
     if (throttle) return;
@@ -28,6 +28,22 @@ export default function Home() {
   };
 
   const isLoading = status === 'pending' || throttle;
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('photo-storage');
+      if (!stored) return;
+
+      const parsed = JSON.parse(stored);
+      const photoData = parsed?.state?.photo;
+
+      if (photoData?.id) {
+        router.replace('/result');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [router]);
 
   return (
     <div className={styles.container}>
