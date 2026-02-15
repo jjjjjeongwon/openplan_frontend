@@ -44,13 +44,13 @@ export default function Home() {
 
   if (!photo) return null;
 
-  console.log('photo', photo);
-
   return (
     <div
       className={styles.container}
       style={{
-        backgroundImage: `url(${photo.download_url})`,
+        backgroundImage: photo?.download_url
+          ? `url(${photo.download_url})`
+          : undefined,
       }}
     >
       <div className={styles.overlay} />

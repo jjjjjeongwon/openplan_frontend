@@ -4,18 +4,30 @@ import { Button } from '@repo/ui/button';
 import styles from './page.module.css';
 import { useFetchPhoto } from '../src/hooks/useFetchPhoto';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Home() {
   const router = useRouter();
   const { fetchPhoto, status } = useFetchPhoto();
 
+  const [throttle, setThrottle] = useState<boolean>(true);
+
   const handleClick = () => {
+    if (throttle) return;
+    setThrottle(true);
+
     fetchPhoto(undefined, {
       onSuccess: () => {
         router.push('/result');
+        setThrottle(false);
+      },
+      onError: () => {
+        setThrottle(false);
       },
     });
   };
+
+  const isLoading = status === 'pending' || throttle;
 
   return (
     <div className={styles.container}>
@@ -34,10 +46,9 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <Button
-          children={status === 'pending' ? 'Loading...' : '다음'}
-          onClick={handleClick}
-        />
+        <Button onClick={handleClick}>
+          {isLoading ? <div className={styles.spinner} /> : '다음'}
+        </Button>
       </footer>
     </div>
   );
