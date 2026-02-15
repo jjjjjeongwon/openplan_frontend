@@ -55,9 +55,15 @@ export default function Home() {
     <div
       className={styles.container}
       style={{
-        backgroundImage: photo?.download_url
-          ? `url(${photo.download_url})`
-          : undefined,
+        backgroundImage:
+          photo?.download_url && !loading
+            ? `url(${photo.download_url})`
+            : undefined,
+        backgroundColor:
+          !photo?.download_url || loading ? '#e0e0e0' : 'transparent',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       <div className={styles.overlay} />
@@ -69,12 +75,16 @@ export default function Home() {
         <div className={styles.webWrapper}>
           <section className={styles.imageSection}>
             <div className={styles.imageWrapper}>
-              {photo.download_url && (
-                <img
-                  src={photo.download_url}
-                  alt={photo.author}
-                  className={styles.image}
-                />
+              {loading ? (
+                <div className={styles.skeleton} style={{ height: '100%' }} />
+              ) : (
+                photo.download_url && (
+                  <img
+                    src={photo.download_url}
+                    alt={photo.author}
+                    className={styles.image}
+                  />
+                )
               )}
             </div>
           </section>
@@ -174,7 +184,7 @@ export default function Home() {
               </ul>
             </section>
             <footer className={styles.footer}>
-              <Button children="이전" onClick={() => router.back()} />
+              <Button onClick={() => router.back()}>이전</Button>
             </footer>
           </div>
         </div>
