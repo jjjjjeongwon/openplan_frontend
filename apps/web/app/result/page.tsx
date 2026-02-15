@@ -66,114 +66,118 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <section className={styles.imageSection}>
-          <div className={styles.imageWrapper}>
-            {photo.download_url && (
-              <img
-                src={photo.download_url}
-                alt={photo.author}
-                className={styles.image}
-              />
-            )}
+        <div className={styles.webWrapper}>
+          <section className={styles.imageSection}>
+            <div className={styles.imageWrapper}>
+              {photo.download_url && (
+                <img
+                  src={photo.download_url}
+                  alt={photo.author}
+                  className={styles.image}
+                />
+              )}
+            </div>
+          </section>
+
+          <div className={styles.infoFooterWrapper}>
+            <section className={styles.infoSection}>
+              <ul className={styles.infoList}>
+                <li className={styles.infoCard}>
+                  <div className={styles.infoItem}>
+                    <dt className={styles.infoLabel}>id</dt>
+                    <dd className={styles.infoValue}>
+                      {loading ? (
+                        <div className={styles.skeleton} />
+                      ) : (
+                        (photo.id ?? '-')
+                      )}
+                    </dd>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <dt className={styles.infoLabel}>author</dt>
+                    <dd className={styles.infoValue}>
+                      {loading ? (
+                        <div className={styles.skeleton} />
+                      ) : (
+                        (photo.author ?? '-')
+                      )}
+                    </dd>
+                  </div>
+                </li>
+
+                <li className={styles.infoCard}>
+                  <div className={styles.infoItem}>
+                    <dt className={styles.infoLabel}>width</dt>
+                    <dd className={styles.infoValue}>
+                      {loading ? (
+                        <div className={styles.skeleton} />
+                      ) : (
+                        (photo.width?.toLocaleString() ?? '-')
+                      )}
+                    </dd>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <dt className={styles.infoLabel}>height</dt>
+                    <dd className={styles.infoValue}>
+                      {loading ? (
+                        <div className={styles.skeleton} />
+                      ) : (
+                        (photo.height?.toLocaleString() ?? '-')
+                      )}
+                    </dd>
+                  </div>
+                </li>
+
+                <li className={styles.infoCard}>
+                  <div className={styles.infoItem}>
+                    <dt className={styles.infoLabel}>url</dt>
+                    <dd className={styles.infoValue}>
+                      {loading ? (
+                        <div className={styles.skeleton} />
+                      ) : photo.url ? (
+                        <a
+                          href={photo.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.link}
+                        >
+                          {photo.url}
+                        </a>
+                      ) : (
+                        '-'
+                      )}
+                    </dd>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <dt className={styles.infoLabel}>download_url</dt>
+                    <dd className={styles.infoValue}>
+                      {loading ? (
+                        <div className={styles.skeleton} />
+                      ) : photo.download_url ? (
+                        <a
+                          href={photo.download_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.link}
+                        >
+                          {photo.download_url}
+                        </a>
+                      ) : (
+                        '-'
+                      )}
+                    </dd>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <footer className={styles.footer}>
+              <Button children="이전" onClick={() => router.back()} />
+            </footer>
           </div>
-        </section>
-
-        <section className={styles.infoSection}>
-          <ul className={styles.infoList}>
-            <li className={styles.infoCard}>
-              <div className={styles.infoItem}>
-                <dt className={styles.infoLabel}>id</dt>
-                <dd className={styles.infoValue}>
-                  {loading ? (
-                    <div className={styles.skeleton} />
-                  ) : (
-                    (photo.id ?? '-')
-                  )}
-                </dd>
-              </div>
-
-              <div className={styles.infoItem}>
-                <dt className={styles.infoLabel}>author</dt>
-                <dd className={styles.infoValue}>
-                  {loading ? (
-                    <div className={styles.skeleton} />
-                  ) : (
-                    (photo.author ?? '-')
-                  )}
-                </dd>
-              </div>
-            </li>
-
-            <li className={styles.infoCard}>
-              <div className={styles.infoItem}>
-                <dt className={styles.infoLabel}>width</dt>
-                <dd className={styles.infoValue}>
-                  {loading ? (
-                    <div className={styles.skeleton} />
-                  ) : (
-                    (photo.width?.toLocaleString() ?? '-')
-                  )}
-                </dd>
-              </div>
-
-              <div className={styles.infoItem}>
-                <dt className={styles.infoLabel}>height</dt>
-                <dd className={styles.infoValue}>
-                  {loading ? (
-                    <div className={styles.skeleton} />
-                  ) : (
-                    (photo.height?.toLocaleString() ?? '-')
-                  )}
-                </dd>
-              </div>
-            </li>
-
-            <li className={styles.infoCard}>
-              <div className={styles.infoItem}>
-                <dt className={styles.infoLabel}>url</dt>
-                <dd className={styles.infoValue}>
-                  {loading ? (
-                    <div className={styles.skeleton} />
-                  ) : photo.url ? (
-                    <a
-                      href={photo.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.link}
-                    >
-                      {photo.url}
-                    </a>
-                  ) : (
-                    '-'
-                  )}
-                </dd>
-              </div>
-
-              <div className={styles.infoItem}>
-                <dt className={styles.infoLabel}>download_url</dt>
-                <dd className={styles.infoValue}>
-                  {loading ? (
-                    <div className={styles.skeleton} />
-                  ) : photo.download_url ? (
-                    <a
-                      href={photo.download_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.link}
-                    >
-                      {photo.download_url}
-                    </a>
-                  ) : (
-                    '-'
-                  )}
-                </dd>
-              </div>
-            </li>
-          </ul>
-        </section>
-        <footer className={styles.footer}>
-          <Button children="이전" onClick={() => router.back()} />
-        </footer>
+        </div>
       </main>
     </div>
   );
