@@ -18,29 +18,27 @@ export default function Home() {
   const router = useRouter();
 
   const [photo, setPhoto] = useState<PhotoData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem('photo-storage');
-
-      if (!stored) {
-        console.warn('localStorage에 데이터 없음');
-        return;
-      }
+      if (!stored) return;
 
       const parsed = JSON.parse(stored);
-
       const photoData = parsed?.state?.photo;
 
       if (!photoData?.id || !photoData?.author) {
-        console.warn('photo 데이터 이상');
         router.replace('/');
         return;
       }
 
-      setPhoto(parsed.state.photo);
+      setTimeout(() => {
+        setPhoto(parsed.state.photo);
+        setLoading(false);
+      }, 500);
     } catch (error) {
-      console.error('localStorage 파싱 에러', error);
+      console.error(error);
     }
   }, []);
 
@@ -78,34 +76,58 @@ export default function Home() {
             <li className={styles.infoCard}>
               <div className={styles.infoItem}>
                 <dt className={styles.infoLabel}>id</dt>
-                <dd className={styles.infoValue}>{photo.id ?? '-'}</dd>
+                <dd className={styles.infoValue}>
+                  {loading ? (
+                    <div className={styles.skeleton} />
+                  ) : (
+                    (photo.id ?? '-')
+                  )}
+                </dd>
               </div>
 
               <div className={styles.infoItem}>
                 <dt className={styles.infoLabel}>author</dt>
-                <dd className={styles.infoValue}>{photo.author ?? '-'}</dd>
+                <dd className={styles.infoValue}>
+                  {loading ? (
+                    <div className={styles.skeleton} />
+                  ) : (
+                    (photo.author ?? '-')
+                  )}
+                </dd>
               </div>
             </li>
+
             <li className={styles.infoCard}>
               <div className={styles.infoItem}>
                 <dt className={styles.infoLabel}>width</dt>
                 <dd className={styles.infoValue}>
-                  {photo.width ? photo.width.toLocaleString() : '-'}
+                  {loading ? (
+                    <div className={styles.skeleton} />
+                  ) : (
+                    (photo.width?.toLocaleString() ?? '-')
+                  )}
                 </dd>
               </div>
 
               <div className={styles.infoItem}>
                 <dt className={styles.infoLabel}>height</dt>
                 <dd className={styles.infoValue}>
-                  {photo.height ? photo.height.toLocaleString() : '-'}
+                  {loading ? (
+                    <div className={styles.skeleton} />
+                  ) : (
+                    (photo.height?.toLocaleString() ?? '-')
+                  )}
                 </dd>
               </div>
             </li>
+
             <li className={styles.infoCard}>
               <div className={styles.infoItem}>
                 <dt className={styles.infoLabel}>url</dt>
                 <dd className={styles.infoValue}>
-                  {photo.url ? (
+                  {loading ? (
+                    <div className={styles.skeleton} />
+                  ) : photo.url ? (
                     <a
                       href={photo.url}
                       target="_blank"
@@ -123,7 +145,9 @@ export default function Home() {
               <div className={styles.infoItem}>
                 <dt className={styles.infoLabel}>download_url</dt>
                 <dd className={styles.infoValue}>
-                  {photo.download_url ? (
+                  {loading ? (
+                    <div className={styles.skeleton} />
+                  ) : photo.download_url ? (
                     <a
                       href={photo.download_url}
                       target="_blank"
